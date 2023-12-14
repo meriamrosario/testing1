@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRUD PROGRAM</title>
+</head>
+<?php 
+include("db.php") 
+?>
+<?php 
+mysql_connect("localhost","root","");
+  mysql_select_db("finals");
+
+  $id = $_POST['id'];
+  $fn = $_POST['fn'];
+  $ln = $_POST['ln'];
+
+  if(isset($_POST['search'])){
+    $query  = "SELECT *FROM info WHERE id='$id'";
+    $data = mysql_query($query);
+    $result = mysql_fetch_assoc($data);
+    if(empty($id))
+    {
+      echo "<script>alert('ID Must Not be Empty');</script>";
+      Print '<script>window.location.assign("index.php");</script>';
+      if (!ctype_digit($id)) {
+    echo "<script>alert('ID Does Not Allow Alphabets');</script>";
+      Print '<script>window.location.assign("index.php");</script>';
+  }
+
+    }
+    
+  }
+
+  
+ ?>
+
+ <style>
+input[type=text] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit],button[type=button] {
+  width: 20%;
+  background-color: #0000FF;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit],button[type=button]:hover {
+  background-color: #0000FF;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
+<body>
+  <div>
+  <center>
+  <form action="#" method="POST">
+    <h4>Personal Information</h4>
+    <input type="submit" name="search" value="Search Data"><br>
+    <input type="text" id="id" name="id" placeholder="Search" value="<?php {echo $result['id'];;} ?>"><br>
+    <input type="button" name="reset" value="Clear Data" onclick="window.location.href='index.php'"><br>
+    <br><br>
+
+    <label for="fname">ID Number</label>
+    <br>
+    <input type="text" id="id"  placeholder="Your id no..." value="<?php {echo $result['id'];;} ?>" disabled>
+    <br>
+    <label for="lname">First Name</label>
+    <br>
+    <input type="text" id="fname" name="fn" placeholder="Your first name.." value="<?php {echo $result['firstname'];;} ?>">
+<br>
+    <label for="country">Last Name</label>
+    <br>
+     <input type="text" id="lname" name="ln" placeholder="Your last name.." value="<?php {echo $result['lastname'];;} ?>"><Br>
+      
+     <br>
+   <button type="button" onclick="window.location.href='add.php'"> Add</button><br>
+    <input type="submit" name="delete" value="Delete Data"><br>
+    <input type="submit" name="edit" value="Update Data">
+   
+  </form>
+</div>
+    
+</body>
+</html>
